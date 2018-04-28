@@ -1,3 +1,4 @@
+
 // DEPENDENCIES
 // =====================================
 // Read and set environment variables
@@ -18,11 +19,11 @@ var request = require("request");
 // Import the FS package for read/write.
 var fs = require("fs");
 
-// Initialize the spotify API client using our client id and secret
-var spotify = new Spotify(keys.spotify);
-
 // Initialize the twitter API client using our client id and secret 
 var client = new Twitter(keys.twitter);
+
+// Initialize the spotify API client using our client id and secret
+var spotify = new Spotify(keys.spotify);
 
 var command = process.argv[2];
 process.argv.shift();// skip node
@@ -35,45 +36,41 @@ var params = {
     count: 20
 };
 
-function getTweets(){
-client.get('statuses/user_timeline', params, function(error, tweets, response) {
-    if (!error){
+function getTweets() {
+    client.get('statuses/user_timeline', params, function (error, tweets, response) {
+        if (!error) {
 
-        for (var i = 0; i < tweets.length; i++){
-            console.log("==============================");
-            console.log("Created: " + tweets[i].created_at);
-            console.log("TWEETS: " + i)
-            console.log(tweets[i].text);
-            console.log("==============================");
+            for (var i = 0; i < tweets.length; i++) {
+                console.log("==============================");
+                console.log("Created: " + tweets[i].created_at);
+                console.log("TWEETS: " + i)
+                console.log(tweets[i].text);
+                console.log("==============================");
             }
         }
-  
 
-});
+
+    });
 }
-//getTweets();
-function spotifyfinder(){
-    
-    if(commandData){
+// getTweets();
+function spotifyfinder() {
+    if (commandData) {
         var songName = commandData;
-    }else{
+    } else {
         songName = "the sign";
     }
-spotify.search({ type: 'track', query: songName }, function(err, data) {
-    if ( err ) {
-        console.log('Error occurred: ' + err);
-        return;
-    } //else {for (var i = 0; i < data.length; i++){
-        // console.log("==============================");
-        // console.log("Name: " + data[i].name);
-        // console.log("Release Date: " + data[i].release_date)
-        // console.log("==============================");
-        console.log(data);
-        //}
+    spotify.search({ type: 'track', query: songName }, function (err, data) {
+        for (i = 0; i < 1; i++) {
+            
+            //console.log(data.tracks.items[i])
+            console.log('Song: '+data.tracks.items[i].name) 
+            console.log('Artist: '+data.tracks.items[i].artists[0].name)
+            console.log('Preview link: '+data.tracks.items[i].preview_url)
         
+            
+           
+        }
     }
- 
-    // Do something with 'data' 
-);
-
-spotifyfinder()};
+    );
+};
+spotifyfinder();

@@ -52,7 +52,7 @@ function getTweets() {
 
     });
 }
-// getTweets();
+getTweets();
 function spotifyfinder() {
     if (commandData) {
         var songName = commandData;
